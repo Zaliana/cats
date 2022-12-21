@@ -17,4 +17,33 @@ cats.forEach(function (catData) {
   cardsContainer.append(newCardElement);
 });
 
-// console.log(cardsContainer);
+console.log(cardsContainer);
+
+
+formCatAdd.addEventListener('submit', handleFormAddCat)
+
+function serializeData(elements) {
+  const formData = {};
+  elements.forEach((input)=> {
+    if (input.type === 'submit') return;
+
+    if (input.type !== 'checkbox') {
+      formData[input.name] = input.value;
+    } else {
+      formData[input.name] = input.checked;
+    }
+  })
+  return formData;
+}
+
+function handleFormAddCat(event) {
+  event.preventDefault();
+  const elementsFormCat = [...formCatAdd.elements];
+  const dataFromForm = serializeData(elementsFormCat);
+  const cardInstance = new Card(dataFromForm, '#card-template');
+  const newCardElement = cardInstance.getElement();
+  cardsContainer.append(newCardElement);
+  // console.log(dataFromForm);
+  popups.close();
+}
+
