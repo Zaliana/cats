@@ -13,7 +13,7 @@ class Card {
     const cardTitle = this.element.querySelector('.card__name');
     const cardImage = this.element.querySelector('.card__image');
     cardTitle.textContent = this._data.name;
-    cardImage.src = this._data.img_link;
+    cardImage.src = this._data.image;
 
     return this.element;
   }

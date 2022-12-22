@@ -11,11 +11,11 @@ btnOpenPopupForm.addEventListener('click', () => {
 });
 
 
-cats.forEach(function (catData) {
-  const cardInstance = new Card(catData, '#card-template');
-  const newCardElement = cardInstance.getElement();
-  cardsContainer.append(newCardElement);
-});
+// cats.forEach(function (catData) {
+//   const cardInstance = new Card(catData, '#card-template');
+//   const newCardElement = cardInstance.getElement();
+//   cardsContainer.append(newCardElement);
+// });
 
 console.log(cardsContainer);
 
@@ -40,10 +40,21 @@ function handleFormAddCat(event) {
   event.preventDefault();
   const elementsFormCat = [...formCatAdd.elements];
   const dataFromForm = serializeData(elementsFormCat);
-  const cardInstance = new Card(dataFromForm, '#card-template');
-  const newCardElement = cardInstance.getElement();
-  cardsContainer.append(newCardElement);
+  api.addNewCat(dataFromForm).then(() => {
+    const cardInstance = new Card(dataFromForm, '#card-template');
+    const newCardElement = cardInstance.getElement();
+    cardsContainer.append(newCardElement);
+  })
   // console.log(dataFromForm);
   popups.close();
 }
+
+api.getAllCats().then((data)=> {
+  data.forEach(function (catData) {
+    const cardInstance = new Card(catData, '#card-template');
+    const newCardElement = cardInstance.getElement();
+    cardsContainer.append(newCardElement);
+  })
+})
+
 
